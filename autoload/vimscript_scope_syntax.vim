@@ -1,15 +1,15 @@
-function! vimscript_scope_syntax#applyLazy() abort
+function! vimscript_scope_syntax#hilightLazy() abort
   if &ft !~ 'vim' | return | endif
 
   " NOTE: not call it, keep ctermfg etc. added by user
   " TODO: Find existing colors similar to generated colors for ctermfg.
   "call s:clear()
-  call timer_start(0, function('s:apply'))
+  call timer_start(0, function('s:hilight'))
 endfunction
 
 " ---
 
-function! s:apply(timer)
+function! s:hilight(timer)
   let l:color_code = s:getIdentifierColorCode()
   let l:fg_code = vimscript_scope_syntax#utils#colorcode#new(l:color_code)
   exe 'hi vimGlobalVar guifg='.l:fg_code.clone().mul(0.7).add(0, 0, 40).mul(0.8, 0.8, 0.9).str()
