@@ -32,8 +32,10 @@ function! s:lazy(_)
   syn region	vimGlobalOperParen matchgroup=vimParenSep	start="(" end=")" contains=@vimOperGroup
   syn region	vimGlobalOperParen matchgroup=vimSep		start="{" end="}" contains=@vimOperGroup nextgroup=vimVar,vimGlobalVarNoPrefix,vimFuncVar
 
+  "syn match	vimAssignOper   /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimGlobalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+
   " function(local) scope syntax {{{2
-  " -------------------
+  " ----------------------------
   syn match vimLocalVarNoPrefix  /\h\w*/ contained
     \ contains=vimGlobalVar,vimStaticVar,vimLocalVar,vimArgVar,vimBufVar,vimWinVar,vimTabVar,vimVVar
     \ containedin=vimFuncEcho,vimFuncExecute,vimFuncOperParen
@@ -49,7 +51,22 @@ function! s:lazy(_)
   syn region  vimFuncOperParen contained matchgroup=vimSep		start="{" end="}" contains=@vimOperGroup nextgroup=vimVar,vimLocalVarNoPrefix,vimFuncVar
 
   syn cluster vimFuncBodyList add=vimFuncFor,vimFuncLet,vimFuncEcho,vimFuncExecute,vimFuncNotFunc,vimFuncOperParen
-  
+
+  " local scope syntax for Vim9script {{{2
+  " TODO: Vim9script only
+  " ---------------------------------
+  syn keyword vimFuncConst     contained const       	skipwhite nextgroup=vimVar,vimLocalVarNoPrefix,vimFuncVar,vimLetHereDoc
+  syn cluster vimFuncBodyList add=vimFuncConst
+
+  "syn match	vimFuncAssignOper  contained /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimLocalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+
+  " TODO: After fixed bugs, happening in `v8.2.0172` (E492: Not an editor command: --todo)
+  "syn match	vimFuncIncrementPostfix contained /\h\w*\s*++/	contains=vimLocalVarNoPrefix
+  "syn match	vimFuncDecrementPostfix contained /\h\w*\s*--/	contains=vimLocalVarNoPrefix
+  "syn match	vimFuncIncrementPrefix contained /++\s*\h\w*/	contains=vimLocalVarNoPrefix
+  "syn match	vimFuncDecrementPrefix contained /--\s*\h\w*/	contains=vimLocalVarNoPrefix
+  "syn cluster vimFuncBodyList add=vimFuncIncrementPostfix,vimFuncDecrementPostfix,vimFuncIncrementPrefix,vimFuncDecrementPrefix
+
   " args scope syntax {{{2
   " -----------------
   syn match vimArgsVarNoPrefix  /\h\w*/ contained
@@ -87,9 +104,10 @@ if !exists("skip_vim_syntax_inits")
   hi def link vimWinVar            vimWinVar
   hi def link vimTabVar            vimTabVar
   hi def link vimVVar              vimVVar
-  
+
   hi def link vimFor               vimCommand
   hi def link vimFuncFor           vimCommand
   hi def link vimFuncLet           vimCommand
   hi def link vimFuncNotFunc       vimCommand
+  hi def link vimFuncConst         vimCommand
 endif
