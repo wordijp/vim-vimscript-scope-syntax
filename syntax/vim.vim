@@ -32,7 +32,13 @@ function! s:lazy(_)
   syn region	vimGlobalOperParen matchgroup=vimParenSep	start="(" end=")" contains=@vimOperGroup
   syn region	vimGlobalOperParen matchgroup=vimSep		start="{" end="}" contains=@vimOperGroup nextgroup=vimVar,vimGlobalVarNoPrefix,vimFuncVar
 
-  "syn match	vimAssignOper   /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimGlobalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+  if g:vimscript_scope_syntax_assign_operator
+    " Enable assignment operator syntax
+    " XXX: Affected extraneous syntax
+    "      ex) syn match hogeMatch /hoge/ containedin=vimArgVar
+    "                                                 ~~~~~~~~~ affected :(
+    syn match	vimAssignOper   /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimGlobalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+  endif
 
   " function(local) scope syntax {{{2
   " ----------------------------
@@ -58,7 +64,14 @@ function! s:lazy(_)
   syn keyword vimFuncConst     contained const       	skipwhite nextgroup=vimVar,vimLocalVarNoPrefix,vimFuncVar,vimLetHereDoc
   syn cluster vimFuncBodyList add=vimFuncConst
 
-  "syn match	vimFuncAssignOper  contained /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimLocalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+  if g:vimscript_scope_syntax_assign_operator
+    " Enable assignment operator syntax
+    " XXX: Affected extraneous syntax
+    "      ex) syn match hogeMatch /hoge/ containedin=vimArgVar
+    "                                     ~~~~~~~~~~~~~~~~~~~~~ affected :(
+    syn match	vimFuncAssignOper  contained /\(\h\w*\s*\)\?\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimLocalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+    syn cluster vimFuncBodyList add=vimFuncAssignOper
+  endif
 
   " TODO: After fixed bugs, happening in `v8.2.0172` (E492: Not an editor command: --todo)
   "syn match	vimFuncIncrementPostfix contained /\h\w*\s*++/	contains=vimLocalVarNoPrefix
