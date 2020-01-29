@@ -48,7 +48,7 @@ Auto set hilight is only `guifg` and `guibg`, Please set the `ctermfg`  and `cte
 For example:
 
 ```vim
-" syntax/after/vim.vim
+" .vim/after/syntax/vim.vim
 hi vimGlobalVar ctermfg=darkcyan
 hi vimStaticVar ctermfg=darkgreen
 hi vimLocalVar  ctermfg=brown
