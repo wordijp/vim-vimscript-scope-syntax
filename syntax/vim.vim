@@ -23,21 +23,19 @@ function! s:lazy(_)
 
   syn keyword vimFor for skipwhite nextgroup=vimVar,vimGlobalVarNoPrefix
   " NOTE: Add vimGlobalVarNoPrefix
-  " NOTE: Need sync to original nextgroup
+  " NOTE: Need sync to original
   syn keyword vimLet let	unl[et]	skipwhite nextgroup=vimVar,vimGlobalVarNoPrefix,vimFuncVar,vimLetHereDoc
   syn match   vimNotFunc "\<if\>\|\<el\%[seif]\>\|\<return\>\|\<while\>"	skipwhite nextgroup=vimOper,vimOperParen,vimVar,vimGlobalVarNoPrefix,vimFunc,vimNotation
-  syn region	vimOperParen 	matchgroup=vimParenSep	start="(" end=")" contains=@vimOperGroup
-  syn region	vimOperParen	matchgroup=vimSep		start="{" end="}" contains=@vimOperGroup nextgroup=vimGlobalVarNoPrefix
-  "
   syn region	vimGlobalOperParen matchgroup=vimParenSep	start="(" end=")" contains=@vimOperGroup
   syn region	vimGlobalOperParen matchgroup=vimSep		start="{" end="}" contains=@vimOperGroup nextgroup=vimVar,vimGlobalVarNoPrefix,vimFuncVar
+  syn cluster	vimOperGroup add=vimGlobalOperParen
 
   if g:vimscript_scope_syntax_assign_operator
     " Enable assignment operator syntax
     " XXX: Affected extraneous syntax
     "      ex) syn match hogeMatch /hoge/ containedin=vimArgVar
     "                                                 ~~~~~~~~~ affected :(
-    syn match	vimAssignOper   /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimGlobalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+    syn match	vimAssignOper   /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\|\.\)\(\s*\h\w*\)\?/	contains=vimVar,vimGlobalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
   endif
 
   " function(local) scope syntax {{{2
@@ -47,14 +45,15 @@ function! s:lazy(_)
     \ containedin=vimFuncEcho,vimFuncExecute,vimFuncOperParen
 
   " NOTE: Add vimLocalVarNoPrefix
-  " NOTE: Need sync to original nextgroup
+  " NOTE: Need sync to original
   syn keyword vimFuncFor       contained for skipwhite nextgroup=vimVar,vimLocalVarNoPrefix
   syn keyword vimFuncLet       contained let	unl[et]	skipwhite nextgroup=vimVar,vimLocalVarNoPrefix,vimFuncVar,vimLetHereDoc
   syn region  vimFuncEcho      contained oneline excludenl matchgroup=vimCommand start="\<ec\%[ho]\>" skip="\(\\\\\)*\\|" end="$\||" contains=vimFunc,vimFuncVar,vimString
   syn region  vimFuncExecute   contained oneline excludenl matchgroup=vimCommand start="\<exe\%[cute]\>" skip="\(\\\\\)*\\|" end="$\||\|<[cC][rR]>" contains=vimFuncVar,vimIsCommand,vimOper,vimNotation,vimOperParen,vimString
   syn match   vimFuncNotFunc   contained "\<if\>\|\<el\%[seif]\>\|\<return\>\|\<while\>"	skipwhite nextgroup=vimOper,vimOperParen,vimVar,vimLocalVarNoPrefix,vimFunc,vimNotation
-  syn region  vimFuncOperParen contained matchgroup=vimParenSep	start="(" end=")" contains=@vimOperGroup
-  syn region  vimFuncOperParen contained matchgroup=vimSep		start="{" end="}" contains=@vimOperGroup nextgroup=vimVar,vimLocalVarNoPrefix,vimFuncVar
+  syn cluster vimFuncOperGroup           contains=vimEnvvar,vimFunc,vimFuncVar,vimOper,vimFuncOperParen,vimNumber,vimString,vimRegister,vimContinue
+  syn region  vimFuncOperParen contained matchgroup=vimParenSep	start="(" end=")" contains=@vimFuncOperGroup
+  syn region  vimFuncOperParen contained matchgroup=vimSep		start="{" end="}" contains=@vimFuncOperGroup nextgroup=vimVar,vimLocalVarNoPrefix,vimFuncVar
 
   syn cluster vimFuncBodyList add=vimFuncFor,vimFuncLet,vimFuncEcho,vimFuncExecute,vimFuncNotFunc,vimFuncOperParen
 
@@ -69,7 +68,7 @@ function! s:lazy(_)
     " XXX: Affected extraneous syntax
     "      ex) syn match hogeMatch /hoge/ containedin=vimArgVar
     "                                     ~~~~~~~~~~~~~~~~~~~~~ affected :(
-    syn match	vimFuncAssignOper  contained /\(\h\w*\s*\)\?\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\)\(\s*\h\w*\)\?/	contains=vimVar,vimLocalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
+    syn match	vimFuncAssignOper  contained /\(\h\w*\s*\)\?\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\|\.\)\(\s*\h\w*\)\?/	contains=vimVar,vimLocalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
     syn cluster vimFuncBodyList add=vimFuncAssignOper
   endif
 
@@ -85,7 +84,7 @@ function! s:lazy(_)
   syn match vimArgsVarNoPrefix  /\h\w*/ contained
     \ containedin=vimArgVar
 
-  " NOTE: Need sync to original pattern
+  " NOTE: Need sync to original
   if exists("g:vimsyn_folding") && g:vimsyn_folding =~# 'f'
     syn region vimArgsFuncBody  contained	fold start=")"	matchgroup=vimCommand end="\<\(endf\>\|endfu\%[nction]\>\|enddef\>\)"		contains=@vimFuncBodyList
   else
