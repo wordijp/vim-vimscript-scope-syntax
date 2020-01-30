@@ -13,9 +13,9 @@ function! s:hilight(timer)
   let l:color_code = s:getIdentifierColorCode()
   let l:fg_code = vimscript_scope_syntax#utils#colorcode#new(l:color_code)
   exe 'hi vimGlobalVar guifg='.l:fg_code.clone().mul(0.7).add(0, 0, 40).mul(0.8, 0.8, 0.9).str()
-  exe 'hi vimStaticVar guifg='.l:fg_code.clone().mul(0.7).add(0, 40, 0).mul(0.8, 0.9, 0.8).str()
+  exe 'hi vimScriptVar guifg='.l:fg_code.clone().mul(0.7).add(0, 40, 0).mul(0.8, 0.9, 0.8).str()
   exe 'hi vimLocalVar  guifg='.l:fg_code.clone().mul(0.6).add(80, 20, 0).mul(1.6, 0.7, 0.5).str()
-  exe 'hi vimArgVar    guifg='.l:fg_code.clone().mul(0.6).add(80, 0, 40).mul(1.6, 0.55, 0.97).str()
+  exe 'hi vimArgsVar   guifg='.l:fg_code.clone().mul(0.6).add(80, 0, 40).mul(1.6, 0.55, 0.97).str()
   
   let l:color_code = s:getNormalColorCodeBG()
   let l:bg_color_code = vimscript_scope_syntax#utils#colorcode#new(l:color_code).add(20).str()
@@ -28,9 +28,9 @@ endfunction
 
 "function! s:clear()
 "  exe 'hi clear vimGlobalVar'
-"  exe 'hi clear vimStaticVar'
+"  exe 'hi clear vimScriptVar'
 "  exe 'hi clear vimLocalVar'
-"  exe 'hi clear vimArgVar'
+"  exe 'hi clear vimArgsVar'
 
 "  exe 'hi clear vimBufVar'
 "  exe 'hi clear vimWinVar'

@@ -33,13 +33,13 @@ Plug 'wordijp/vim-vimscript-scope-syntax'
 # Scope highlight list
 
 - vimGlobalVar
-- vimStaticVar
+- vimScriptVar
 - vimLocalVar
-- vimArgVar
+- vimArgsVar
 - vimBufVar
 - vimWinVar
 - vimTabVar
-- vimVVar  
+- vimVVar
 
 ## For non GVim users
 
@@ -50,9 +50,9 @@ For example:
 ```vim
 " .vim/after/syntax/vim.vim
 hi vimGlobalVar ctermfg=darkcyan
-hi vimStaticVar ctermfg=darkgreen
+hi vimScriptVar ctermfg=darkgreen
 hi vimLocalVar  ctermfg=brown
-hi vimArgVar    ctermfg=darkred
+hi vimArgsVar   ctermfg=darkred
 
 hi vimBufVar    ctermfg=darkgreen ctermbg=darkblue
 hi vimWinVar    ctermfg=darkgreen ctermbg=darkblue

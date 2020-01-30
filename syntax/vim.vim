@@ -6,9 +6,9 @@
 " Run after original syntax/vim.vim {{{
 function! s:lazy(_)
   syn match vimGlobalVar /g:\h[a-zA-Z0-9#_]*/ containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimStaticVar /s:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimScriptVar /s:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
   syn match vimLocalVar  /l:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimArgVar    /a:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen,vimFuncVar
+  syn match vimArgsVar   /a:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen,vimFuncVar
 
   syn match vimBufVar    /b:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
   syn match vimWinVar    /w:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
@@ -18,7 +18,7 @@ function! s:lazy(_)
   " global scope syntax {{{2
   " -------------------
   syn match vimGlobalVarNoPrefix /\h[a-zA-Z0-9#_]*/ contained
-    \ contains=vimGlobalVar,vimStaticVar,vimBufVar,vimWinVar,vimTabVar,vimVVar
+    \ contains=vimGlobalVar,vimScriptVar,vimBufVar,vimWinVar,vimTabVar,vimVVar
     \ containedin=vimEcho,vimExecute,vimGlobalOperParen
 
   syn keyword vimFor for skipwhite nextgroup=vimVar,vimGlobalVarNoPrefix
@@ -34,7 +34,7 @@ function! s:lazy(_)
   if g:vimscript_scope_syntax_assign_operator
     " Enable assignment operator syntax
     " XXX: Affected extraneous syntax
-    "      ex) syn match hogeMatch /hoge/ containedin=vimArgVar
+    "      ex) syn match hogeMatch /hoge/ containedin=vimArgsVar
     "                                                 ~~~~~~~~~ affected :(
     syn match	vimAssignOper   /\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\|\.\)\(\s*\h\w*\)\?/	contains=vimVar,vimGlobalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
   endif
@@ -42,7 +42,7 @@ function! s:lazy(_)
   " function(local) scope syntax {{{2
   " ----------------------------
   syn match vimLocalVarNoPrefix  /\h\w*/ contained
-    \ contains=vimGlobalVar,vimStaticVar,vimLocalVar,vimArgVar,vimBufVar,vimWinVar,vimTabVar,vimVVar
+    \ contains=vimGlobalVar,vimScriptVar,vimLocalVar,vimArgsVar,vimBufVar,vimWinVar,vimTabVar,vimVVar
     \ containedin=vimFuncEcho,vimFuncExecute,vimFuncOperParen
 
   " NOTE: Add vimLocalVarNoPrefix
@@ -67,7 +67,7 @@ function! s:lazy(_)
   if g:vimscript_scope_syntax_assign_operator
     " Enable assignment operator syntax
     " XXX: Affected extraneous syntax
-    "      ex) syn match hogeMatch /hoge/ containedin=vimArgVar
+    "      ex) syn match hogeMatch /hoge/ containedin=vimArgsVar
     "                                     ~~~~~~~~~~~~~~~~~~~~~ affected :(
     syn match	vimFuncAssignOper  contained /\(\h\w*\s*\)\?\(+=\?\|-=\?\|\*=\?\|\/=\?\|=\|\.\)\(\s*\h\w*\)\?/	contains=vimVar,vimLocalVarNoPrefix,vimFunc nextgroup=vimString,vimSpecFile
     syn cluster vimFuncBodyList add=vimFuncAssignOper
@@ -83,7 +83,7 @@ function! s:lazy(_)
   " args scope syntax {{{2
   " -----------------
   syn match vimArgsVarNoPrefix  /\h\w*/ contained
-    \ containedin=vimArgVar
+    \ containedin=vimArgsVar
 
   " NOTE: Need sync to original
   if exists("g:vimsyn_folding") && g:vimsyn_folding =~# 'f'
@@ -116,11 +116,11 @@ call timer_start(0, function('s:lazy'))
 if !exists("skip_vim_syntax_inits")
   hi def link vimGlobalVar         vimGlobalVar
   hi def link vimGlobalVarNoPrefix vimGlobalVar
-  hi def link vimStaticVar         vimStaticVar
+  hi def link vimScriptVar         vimScriptVar
   hi def link vimLocalVar          vimLocalVar
   hi def link vimLocalVarNoPrefix  vimLocalVar
-  hi def link vimArgVar            vimArgVar
-  hi def link vimArgsVarNoPrefix   vimArgVar
+  hi def link vimArgsVar           vimArgsVar
+  hi def link vimArgsVarNoPrefix   vimArgsVar
 
   hi def link vimBufVar            vimBufVar
   hi def link vimWinVar            vimWinVar
