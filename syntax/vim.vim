@@ -25,6 +25,7 @@ function! s:lazy(_)
   " NOTE: Add vimGlobalVarNoPrefix
   " NOTE: Need sync to original
   syn keyword vimLet let	unl[et]	skipwhite nextgroup=vimVar,vimGlobalVarNoPrefix,vimFuncVar,vimLetHereDoc
+  syn region  vimExecute	oneline excludenl matchgroup=vimCommand start="\<exe\%[cute]\>" skip="\(\\\\\)*\\|" end="$\||\|<[cC][rR]>" contains=vimFuncVar,vimIsCommand,vimOper,vimNotation,vimOperParen,vimString,vimFunc,vimVar,vimGlobalVarNoPrefix
   syn match   vimNotFunc "\<if\>\|\<el\%[seif]\>\|\<return\>\|\<while\>"	skipwhite nextgroup=vimOper,vimOperParen,vimVar,vimGlobalVarNoPrefix,vimFunc,vimNotation
   syn region	vimGlobalOperParen matchgroup=vimParenSep	start="(" end=")" contains=@vimOperGroup
   syn region	vimGlobalOperParen matchgroup=vimSep		start="{" end="}" contains=@vimOperGroup nextgroup=vimVar,vimGlobalVarNoPrefix,vimFuncVar
@@ -48,8 +49,8 @@ function! s:lazy(_)
   " NOTE: Need sync to original
   syn keyword vimFuncFor       contained for skipwhite nextgroup=vimVar,vimLocalVarNoPrefix
   syn keyword vimFuncLet       contained let	unl[et]	skipwhite nextgroup=vimVar,vimLocalVarNoPrefix,vimFuncVar,vimLetHereDoc
-  syn region  vimFuncEcho      contained oneline excludenl matchgroup=vimCommand start="\<ec\%[ho]\>" skip="\(\\\\\)*\\|" end="$\||" contains=vimFunc,vimFuncVar,vimString
-  syn region  vimFuncExecute   contained oneline excludenl matchgroup=vimCommand start="\<exe\%[cute]\>" skip="\(\\\\\)*\\|" end="$\||\|<[cC][rR]>" contains=vimFuncVar,vimIsCommand,vimOper,vimNotation,vimOperParen,vimString
+  syn region  vimFuncEcho      contained oneline excludenl matchgroup=vimCommand start="\<ec\%[ho]\>" skip="\(\\\\\)*\\|" end="$\||" contains=vimFunc,vimFuncVar,vimString,vimVar,vimLocalVarNoPrefix
+  syn region  vimFuncExecute   contained oneline excludenl matchgroup=vimCommand start="\<exe\%[cute]\>" skip="\(\\\\\)*\\|" end="$\||\|<[cC][rR]>" contains=vimFuncVar,vimIsCommand,vimOper,vimNotation,vimOperParen,vimString,vimFunc,vimVar,vimLocalVarNoPrefix
   syn match   vimFuncNotFunc   contained "\<if\>\|\<el\%[seif]\>\|\<return\>\|\<while\>"	skipwhite nextgroup=vimOper,vimOperParen,vimVar,vimLocalVarNoPrefix,vimFunc,vimNotation
   syn cluster vimFuncOperGroup           contains=vimEnvvar,vimFunc,vimFuncVar,vimOper,vimFuncOperParen,vimNumber,vimString,vimRegister,vimContinue
   syn region  vimFuncOperParen contained matchgroup=vimParenSep	start="(" end=")" contains=@vimFuncOperGroup
