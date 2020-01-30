@@ -1,7 +1,7 @@
 " Vim syntax file
 " Language:     Vim 8.0 script
 " Maintainer:   wordijp <wordijp@gmail.com>
-" URL:          https://github.com/wordijp/vimscript-scope-syntax
+" URL:          https://github.com/wordijp/vim-vimscript-scope-syntax
 
 " Run after original syntax/vim.vim {{{
 function! s:lazy(_)
