@@ -91,7 +91,7 @@ function! s:lazy(_)
   else
     syn region vimArgsFuncBody  contained	     start=")"	matchgroup=vimCommand end="\<\(endf\>\|endfu\%[nction]\>\|enddef\>\)"		contains=@vimFuncBodyList
   endif
-  syn region vimArgsOperParen contained start="(" end=")"me=e-1 contains=vimArgsVarNoPrefix nextgroup=vimArgsFuncBody
+  syn region vimArgsOperParen contained start="\s*(" end="\ze)" contains=vimArgsVarNoPrefix nextgroup=vimArgsFuncBody
   syn match  vimArgsFunction /\<\(fu\%[nction]\|def\)!\=\s\+\%(<[sS][iI][dD]>\|[sSgGbBwWtTlL]:\)\=\%(\i\|[#.]\|{.\{-1,}}\)*\ze\s*(/ contains=@vimFuncList nextgroup=vimArgsOperParen
 
   " defined original {{{2
