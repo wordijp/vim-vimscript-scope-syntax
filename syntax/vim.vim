@@ -94,14 +94,20 @@ function! s:lazy(_)
   syn region vimArgsOperParen contained start="(" end=")"me=e-1 contains=vimArgsVarNoPrefix nextgroup=vimArgsFuncBody
   syn match  vimArgsFunction /\<\(fu\%[nction]\|def\)!\=\s\+\%(<[sS][iI][dD]>\|[sSgGbBwWtTlL]:\)\=\%(\i\|[#.]\|{.\{-1,}}\)*\ze\s*(/ contains=@vimFuncList nextgroup=vimArgsOperParen
 
-  " Redefined as is {{{2
-  " -------------------
+  " defined original {{{2
+  " ----------------
+  syn match vimAutoloadFunc contained "\h[a-zA-Z0-9#_]*\ze\s*("
+
+  " Redefined {{{2
+  " ---------
   " NOTE: for priority up
   " NOTE: Need sync to original
 
   " remove '.'
   " NOTE: for scope syntax of class instance
-  syn match vimFunc		"\%(\%([sSgGbBwWtTlL]:\|<[sS][iI][dD]>\)\=\%(\w\+\)*\I[a-zA-Z0-9_]*\)\ze\s*("		contains=vimFuncName,vimUserFunc,vimExecute
+  " add '#'
+  " NOTE: for autoload function syntax for vim plugin
+  syn match vimFunc		"\%(\%([sSgGbBwWtTlL]:\|<[sS][iI][dD]>\)\=\%(\w\+\)*\I[a-zA-Z0-9_#]*\)\ze\s*("		contains=vimFuncName,vimUserFunc,vimExecute,vimAutoloadFunc
   " }}}
 endfunction
 " }}}
@@ -126,4 +132,5 @@ if !exists("skip_vim_syntax_inits")
   hi def link vimFuncLet           vimCommand
   hi def link vimFuncNotFunc       vimCommand
   hi def link vimFuncConst         vimCommand
+  hi def link vimAutoloadFunc      Normal
 endif
