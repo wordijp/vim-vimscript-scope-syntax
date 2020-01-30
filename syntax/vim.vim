@@ -98,7 +98,10 @@ function! s:lazy(_)
   " -------------------
   " NOTE: for priority up
   " NOTE: Need sync to original
-  syn match vimFunc		"\%(\%([sSgGbBwWtTlL]:\|<[sS][iI][dD]>\)\=\%(\w\+\.\)*\I[a-zA-Z0-9_.]*\)\ze\s*("		contains=vimFuncName,vimUserFunc,vimExecute
+
+  " remove '.'
+  " NOTE: for scope syntax of class instance
+  syn match vimFunc		"\%(\%([sSgGbBwWtTlL]:\|<[sS][iI][dD]>\)\=\%(\w\+\)*\I[a-zA-Z0-9_]*\)\ze\s*("		contains=vimFuncName,vimUserFunc,vimExecute
   " }}}
 endfunction
 " }}}
