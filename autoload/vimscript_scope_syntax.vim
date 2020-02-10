@@ -39,32 +39,13 @@ endfunction
 "endfunction
 
 function! s:getIdentifierColorCode()
-  let l:fg = synIDattr(s:getIdentifierID(), 'fg#')
+  let l:fg = synIDattr(synIDtrans(hlID('Identifier')), 'fg#')
   if l:fg !~ '#' | return '#000000' | endif
   return l:fg
 endfunction
 
 function! s:getNormalColorCodeBG()
-  let l:bg = synIDattr(s:getNormalID(), 'bg#')
+  let l:bg = synIDattr(synIDtrans(hlID('Normal')), 'bg#')
   if l:bg !~ '#' | return '#ffffff' | endif
   return l:bg
-endfunction
-
-function! s:getIdentifierID()
-  return s:searchSynID('Identifier')
-endfunction
-
-function! s:getNormalID()
-  return s:searchSynID('Normal')
-endfunction
-
-function! s:searchSynID(name)
-  for l:id in range(1, 1000)
-    let l:name = synIDattr(l:id, 'name')
-    if l:name =~ a:name
-      return l:id
-    endif
-  endfor
-  
-  throw 'not found ID'
 endfunction
