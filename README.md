@@ -30,7 +30,16 @@ For [vim-plug](https://github.com/junegunn/vim-plug) plugin manager:
 Plug 'wordijp/vim-vimscript-scope-syntax'
 ```
 
-# Scope highlight list
+# Usage
+
+The syntax hilight color is calculated automatically.  
+If you want to change it, turn off the auto-enable option and set yourself for each highlight
+
+```vim
+let g:vimscript_scope_syntax_auto_enable = 0
+```
+
+## Scope highlight list
 
 - vimGlobalVar
 - vimScriptVar
@@ -41,9 +50,9 @@ Plug 'wordijp/vim-vimscript-scope-syntax'
 - vimTabVar
 - vimVVar
 
-## For non GVim users
+## For guifg disabled users
 
-Auto set hilight is only `guifg` and `guibg`, Please set the `ctermfg`  and `ctermbg` by yourself.
+Auto set hilight is `guifg` and `guibg` only, Please set the `ctermfg`  and `ctermbg` by yourself.
 
 For example:
 
