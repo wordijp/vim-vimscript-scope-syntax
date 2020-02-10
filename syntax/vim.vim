@@ -5,15 +5,15 @@
 
 " Run after original syntax/vim.vim {{{
 function! s:lazy(_)
-  syn match vimGlobalVar /g:\h[a-zA-Z0-9#_]*/ containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimScriptVar /s:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimLocalVar  /l:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimArgsVar   /a:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen,vimFuncVar
+  syn match vimGlobalVar /g:\(\h[a-zA-Z0-9#_]*\)\?/ containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimScriptVar /s:\(\h\w*\)\?/            containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimLocalVar  /l:\(\h\w*\)\?/            containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimArgsVar   /a:\(\h\w*\)\?/            containedin=vimVar,vimFBVar,vimOperParen,vimFuncVar
 
-  syn match vimBufVar    /b:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimWinVar    /w:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimTabVar    /t:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
-  syn match vimVVar      /v:\h\w*/            containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimBufVar    /b:\(\h\w*\)\?/            containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimWinVar    /w:\(\h\w*\)\?/            containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimTabVar    /t:\(\h\w*\)\?/            containedin=vimVar,vimFBVar,vimOperParen
+  syn match vimVVar      /v:\(\h\w*\)\?/            containedin=vimVar,vimFBVar,vimOperParen
 
   " global scope syntax {{{2
   " -------------------
