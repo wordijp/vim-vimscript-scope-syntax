@@ -9,8 +9,8 @@ endfunction
 
 " ---
 
-function! s:hilight(timer)
-  let l:color_code = s:getIdentifierColorCode()
+function! s:hilight(_)
+  let l:color_code = s:getIdentifierColorCodeFG()
   let l:fg_code = vimscript_scope_syntax#utils#colorcode#new(l:color_code)
   exe 'hi vimGlobalVar guifg='.l:fg_code.clone().mul(0.7).add(0, 0, 40).mul(0.8, 0.8, 0.9).str()
   exe 'hi vimScriptVar guifg='.l:fg_code.clone().mul(0.7).add(0, 40, 0).mul(0.8, 0.9, 0.8).str()
@@ -38,7 +38,7 @@ endfunction
 "  exe 'hi clear vimVVar'
 "endfunction
 
-function! s:getIdentifierColorCode()
+function! s:getIdentifierColorCodeFG()
   let l:fg = synIDattr(synIDtrans(hlID('Identifier')), 'fg#')
   if l:fg !~ '#' | return '#000000' | endif
   return l:fg
