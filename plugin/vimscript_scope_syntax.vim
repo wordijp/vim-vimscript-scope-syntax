@@ -5,7 +5,7 @@ let g:vimscript_scope_syntax_loaded = 1
 
 let g:vimscript_scope_syntax_assign_operator = get(g:, 'vimscript_scope_syntax_assign_operator', 1)
 
-let g:vimscript_auto_enable = get(g:, 'vimscript_auto_enable', 1)
+let g:vimscript_auto_enable = get(g:, 'vimscript_auto_enable', has('gui_running') || (has('termguicolors') && &termguicolors))
 if g:vimscript_auto_enable
   augroup vimscript_auto_enable
     autocmd!
