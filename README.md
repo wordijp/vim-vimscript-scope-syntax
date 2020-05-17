@@ -8,6 +8,8 @@ The Vim script scope syntax highlighting plugin for vim.
 
 # Demo
 
+<img src="./demo/dynamic_cursor_variable.gif">
+
 Highlight color is auto generate.  
 For example, desert colorscheme
 
@@ -30,14 +32,33 @@ For [vim-plug](https://github.com/junegunn/vim-plug) plugin manager:
 Plug 'wordijp/vim-vimscript-scope-syntax'
 ```
 
+# Dependencies
+
+Dynamic cursor variable highlight is depend on [vim-lsp](https://github.com/prabirshrestha/vim-lsp).
+
+
 # Usage
 
-The syntax hilight color is calculated automatically.  
+The syntax highlight color is calculated automatically.  
 If you want to change it, turn off the auto-enable option and set yourself for each highlight
 
 ```vim
 let g:vimscript_scope_syntax_auto_enable = 0
 ```
+
+Turn of the dynamic cursor variable highlight:
+
+```vim
+let g:vimscript_scope_syntax_dynamic_cursor_enable = 0
+```
+
+Update interval:
+
+```vim
+" default: 200
+let g:vimscript_scope_syntax_dynamic_cursor_interval = 100
+```
+
 
 ## Scope highlight list
 
@@ -50,9 +71,11 @@ let g:vimscript_scope_syntax_auto_enable = 0
 - vimTabVar
 - vimVVar
 
+Dynamic cursor variable highlight list has `Dyn` suffix
+
 ## For guifg disabled users
 
-Auto set hilight is `guifg` and `guibg` only, Please set the `ctermfg`  and `ctermbg` by yourself.
+Auto set highlight is `guifg` and `guibg` only, Please set the `ctermfg`  and `ctermbg` by yourself.
 
 For example:
 
